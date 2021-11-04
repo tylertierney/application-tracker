@@ -11,6 +11,8 @@ const DataProvider: React.FC = ({ children }: any) => {
         return action.payload;
       case "addNewApplication":
         return action.payload;
+      case "deleteApplication":
+        return action.payload;
       default:
         return state;
     }
@@ -63,15 +65,32 @@ const DataProvider: React.FC = ({ children }: any) => {
 
     copyOfData.unshift(appObject);
 
-    console.log(copyOfData);
+    localStorage.setItem("jobapps-data", JSON.stringify(copyOfData));
 
     dispatch({ type: "addNewApplication", payload: copyOfData });
+  };
+
+  const deleteApplication = (id: number) => {
+    let copyOfData = [...data];
+
+    const foundAppIndex = copyOfData.findIndex((app) => {
+      return app.id === id;
+    });
+
+    console.log(foundAppIndex);
+
+    copyOfData.splice(foundAppIndex, 1);
+
+    localStorage.setItem("jobapps-data", JSON.stringify(copyOfData));
+
+    dispatch({ type: "deleteApplication", payload: copyOfData });
   };
 
   const ctx: any = {
     data,
     changeStatus,
     addNewApplication,
+    deleteApplication,
   };
 
   return <DataContext.Provider value={ctx}>{children}</DataContext.Provider>;

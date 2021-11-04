@@ -9,6 +9,9 @@ import {
   Button,
   Badge,
 } from "@chakra-ui/react";
+
+import DeleteConfirmation from "./DeleteConfirmation";
+
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { determineBadgeColor } from "../../helperFunctions";
 import { useData } from "../../context/dataContext";
@@ -25,7 +28,7 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
     posting_link,
     company,
     found_via,
-    // office_loc,
+    office_loc,
     // job_loc,
     // linkedin_link,
     status,
@@ -69,27 +72,31 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
           >
             {company}
           </Text>
-          <Flex align="center" justify="space-around">
+          <Flex align="center" justify="space-around" ml="auto">
             <Menu>
               <MenuButton
-                ml="auto"
+                marginRight="0.5rem"
                 as={Button}
-                bgColor={determineBadgeColor(status)}
-                _hover={{ opacity: "1" }}
-                _focus={{
-                  backgroundColor: determineBadgeColor(status),
-                }}
+                // bgColor={determineBadgeColor(status)}
+                // _hover={{ opacity: "1" }}
+                // _focus={{
+                //   backgroundColor: determineBadgeColor(status),
+                // }}
                 fontSize="0.8rem"
                 minW="100px"
                 maxW="100px"
                 maxH="2rem"
+                bgColor="transparent"
+                border="solid 1px"
+                borderColor={determineBadgeColor(status)}
+                color="gray"
               >
                 {
-                  <Text color="white" as="span">
+                  <Text color={determineBadgeColor(status)} as="span">
                     {status}
                   </Text>
                 }
-                <ChevronDownIcon color="white" fontSize="1rem" />
+                <ChevronDownIcon color="gray" fontSize="1rem" />
               </MenuButton>
               <MenuList>
                 {statusMenuItems.map((status, index) => {
@@ -113,10 +120,16 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
                 })}
               </MenuList>
             </Menu>
+            <DeleteConfirmation application={application} />
           </Flex>
         </Flex>
         <Flex justify="space-between" align="center" w="100%" p="0rem 0.5rem">
-          <Badge colorScheme="blue">Remote</Badge>
+          <Flex>
+            <Badge colorScheme="blue" mr="0.5rem">
+              Remote
+            </Badge>
+            <Text fontSize="0.7rem">Office: {office_loc}</Text>
+          </Flex>
           <Flex>
             <Text fontSize="0.7rem" minW="80px">
               {found_via ? `Found via: ${found_via}` : ""}
