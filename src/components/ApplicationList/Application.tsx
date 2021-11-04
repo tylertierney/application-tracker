@@ -35,7 +35,10 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
 
   const statusMenuItems = ["Pending", "Rejected", "Interview"];
 
-  console.log(date?.toLocaleDateString());
+  let convertedDate = "";
+  if (date) {
+    convertedDate = new Date(date).toLocaleDateString();
+  }
 
   return (
     <li style={{ listStyleType: "none" }}>
@@ -52,6 +55,7 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
               maxW="240px"
               minW="240px"
               fontSize={["0.8rem", "0.9rem", "1rem"]}
+              fontWeight="bold"
             >
               {job_title}
             </Text>
@@ -117,7 +121,9 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
             <Text fontSize="0.7rem" minW="80px">
               {found_via ? `Found via: ${found_via}` : ""}
             </Text>
-            <Text fontSize="0.7rem">{date?.toLocaleDateString()}</Text>
+            <Text fontSize="0.7rem">
+              {date === undefined || date === null ? "" : convertedDate}
+            </Text>
           </Flex>
         </Flex>
       </Flex>

@@ -6,8 +6,11 @@ import { Flex, Button, Text, Box } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 
 import NewApplication from "../NewApplication/NewApplication";
+import SortAndFilter from "../SortAndFilter/SortAndFilter";
 
 import "./home.css";
+
+import { useState } from "react";
 
 export interface ApplicationType {
   job_title: string;
@@ -27,6 +30,20 @@ interface IProps {
 }
 
 const Home: React.FC<IProps> = ({ data }) => {
+  const [sortingBy, setSortingBy] = useState("");
+
+  if (sortingBy === "Status") {
+    data.sort((a, b) => {
+      if (a.status < b.status) {
+        return -1;
+      }
+      if (a.status > b.status) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+
   const appArray = data.map((app, index) => {
     return <ApplicationListItem key={index} application={app} />;
   });
@@ -42,6 +59,7 @@ const Home: React.FC<IProps> = ({ data }) => {
     >
       <Box w="100%" h="100%" maxW="800px" minW="400px">
         <NewApplication />
+        <SortAndFilter sortingBy={sortingBy} setSortingBy={setSortingBy} />
         <ul
           style={{
             width: "100%",

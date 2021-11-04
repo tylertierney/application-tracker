@@ -49,7 +49,7 @@ const NewApplication = () => {
       <form onSubmit={(e) => handleSubmit(e)} style={{ width: "100%" }}>
         <Flex w="100%" justify="space-around" align="center" mb="0.2rem">
           <Flex align="center">
-            <Text fontSize="0.8rem">Job Title:&nbsp;</Text>
+            <Text fontSize="0.8rem">Title:&nbsp;</Text>
             <Input
               maxW="380px"
               type="text"
@@ -58,7 +58,7 @@ const NewApplication = () => {
             />
           </Flex>
           <Flex align="center">
-            <Text fontSize="0.8rem">Company Name:&nbsp;</Text>
+            <Text fontSize="0.8rem">Company:&nbsp;</Text>
             <Input
               maxW="180px"
               type="text"
