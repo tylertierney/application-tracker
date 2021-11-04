@@ -42,7 +42,7 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
         w="100%"
         direction="column"
         align="center"
-        p="0.5rem 0.5rem"
+        p="0.2rem 0.5rem"
         _hover={{ backgroundColor: "rgb(0, 0, 0, 0.05)" }}
       >
         <Flex justify="space-around" align="center" p="0.5rem 0.5rem" w="100%">

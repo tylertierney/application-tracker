@@ -9,6 +9,8 @@ const DataProvider: React.FC = ({ children }: any) => {
     switch (action.type) {
       case "changeStatus":
         return action.payload;
+      case "addNewApplication":
+        return action.payload;
       default:
         return state;
     }
@@ -30,9 +32,29 @@ const DataProvider: React.FC = ({ children }: any) => {
     dispatch({ type: "changeStatus", payload: copyOfData });
   };
 
+  const addNewApplication = (
+    job_title: string,
+    posting_link: string,
+    company: string,
+    found_via: string,
+    office_loc: string,
+    job_loc: string,
+    linkedin_link: string,
+    date: Date
+  ) => {
+    let copyOfData = [...data];
+
+    const currentDate = new Date();
+
+    console.log(currentDate);
+
+    dispatch({ type: "addNewApplication", payload: copyOfData });
+  };
+
   const ctx: any = {
     data,
     changeStatus,
+    addNewApplication,
   };
 
   return <DataContext.Provider value={ctx}>{children}</DataContext.Provider>;

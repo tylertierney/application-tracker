@@ -1,6 +1,5 @@
 import React from "react";
 import Home from "./components/Home/Home";
-// import data from "./data.json";
 import { useData } from "./context/dataContext";
 import { Box } from "@chakra-ui/react";
 
