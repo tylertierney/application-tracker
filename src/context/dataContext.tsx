@@ -46,7 +46,24 @@ const DataProvider: React.FC = ({ children }: any) => {
 
     const currentDate = new Date();
 
-    console.log(currentDate);
+    const id = copyOfData.length;
+
+    const appObject = {
+      job_title,
+      posting_link,
+      company,
+      found_via,
+      office_loc,
+      job_loc,
+      linkedin_link,
+      status: "Pending",
+      id,
+      date: currentDate,
+    };
+
+    copyOfData.unshift(appObject);
+
+    console.log(copyOfData);
 
     dispatch({ type: "addNewApplication", payload: copyOfData });
   };

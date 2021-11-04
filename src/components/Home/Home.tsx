@@ -1,7 +1,7 @@
 // import ApplicationListItem from "../../ApplicationList/Application";
 import ApplicationListItem from "../ApplicationList/Application";
 
-import { Flex, Button, Text } from "@chakra-ui/react";
+import { Flex, Button, Text, Box } from "@chakra-ui/react";
 
 import { AddIcon } from "@chakra-ui/icons";
 
@@ -40,21 +40,21 @@ const Home: React.FC<IProps> = ({ data }) => {
       align="center"
       direction="column"
     >
-      <NewApplication />
-      <ul
-        style={{
-          width: "100%",
-          height: "100%",
-          borderRadius: "10px",
-          padding: "0.5rem 0rem",
-          boxShadow: "0px 0px 10px 1px rgb(0, 0, 0, 0.2)",
-          overflow: "hidden",
-          maxWidth: "800px",
-          minWidth: "400px",
-        }}
-      >
-        {appArray}
-      </ul>
+      <Box w="100%" h="100%" maxW="800px" minW="400px">
+        <NewApplication />
+        <ul
+          style={{
+            width: "100%",
+            height: "100%",
+            borderRadius: "10px",
+            padding: "0.5rem 0rem",
+            boxShadow: "0px 0px 10px 1px rgb(0, 0, 0, 0.2)",
+            overflow: "hidden",
+          }}
+        >
+          {appArray}
+        </ul>
+      </Box>
     </Flex>
   );
 };

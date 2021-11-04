@@ -7,6 +7,7 @@ import {
   MenuList,
   MenuItem,
   Button,
+  Badge,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { determineBadgeColor } from "../../helperFunctions";
@@ -23,7 +24,7 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
     job_title,
     posting_link,
     company,
-    // found_via,
+    found_via,
     // office_loc,
     // job_loc,
     // linkedin_link,
@@ -34,7 +35,7 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
 
   const statusMenuItems = ["Pending", "Rejected", "Interview"];
 
-  console.log(application);
+  console.log(date?.toLocaleDateString());
 
   return (
     <li style={{ listStyleType: "none" }}>
@@ -65,9 +66,6 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
             {company}
           </Text>
           <Flex align="center" justify="space-around">
-            <Text fontSize={["0.8rem", "0.9rem", "1rem"]} mr="0.4rem">
-              {date}
-            </Text>
             <Menu>
               <MenuButton
                 ml="auto"
@@ -90,10 +88,10 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
                 <ChevronDownIcon color="white" fontSize="1rem" />
               </MenuButton>
               <MenuList>
-                {statusMenuItems.map((status) => {
-                  console.log(status);
+                {statusMenuItems.map((status, index) => {
                   return (
                     <MenuItem
+                      key={index}
                       transition="0.3s ease-in-out"
                       _hover={{
                         bgColor: determineBadgeColor(status),
@@ -113,8 +111,14 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
             </Menu>
           </Flex>
         </Flex>
-        <Flex justify="flex-end" align="center" w="100%" p="0rem 0.5rem">
-          <Text fontSize="0.7rem">10101010{date}</Text>
+        <Flex justify="space-between" align="center" w="100%" p="0rem 0.5rem">
+          <Badge colorScheme="blue">Remote</Badge>
+          <Flex>
+            <Text fontSize="0.7rem" minW="80px">
+              {found_via ? `Found via: ${found_via}` : ""}
+            </Text>
+            <Text fontSize="0.7rem">{date?.toLocaleDateString()}</Text>
+          </Flex>
         </Flex>
       </Flex>
     </li>
