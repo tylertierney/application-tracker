@@ -1,0 +1,24 @@
+[
+    {
+        "job_title": "Junior/Middle Frontend React Developer",
+        "posting_link": "https://kitrum.com/company/careers/junior-middle-frontend-developer/?subject=Junior/Middle%20Frontend%20Developer",
+        "company": "Oyova",
+        "found_via": "",
+        "office_loc": "Jacksonville",
+        "job_loc": "Remote",
+        "linkedin_link": "",
+        "status": "Rejected",
+        "id": 0
+    },
+    {
+        "job_title": "React Developer",
+        "posting_link": "https://e2gens.com/react-developer/",
+        "company": "E2Generations",
+        "found_via": "",
+        "office_loc": "Tampa",
+        "job_loc": "On-site",
+        "linkedin_link": "",
+        "status": "Pending",
+        "id": 1
+    }
+]
