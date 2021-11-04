@@ -64,7 +64,6 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
             </Text>
           </a>
           <Text
-            // mr="100px"
             minW="120px"
             textAlign="left"
             fontSize={["0.8rem", "0.9rem", "1rem"]}
@@ -77,11 +76,6 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
               <MenuButton
                 marginRight="0.5rem"
                 as={Button}
-                // bgColor={determineBadgeColor(status)}
-                // _hover={{ opacity: "1" }}
-                // _focus={{
-                //   backgroundColor: determineBadgeColor(status),
-                // }}
                 fontSize="0.8rem"
                 minW="100px"
                 maxW="100px"
