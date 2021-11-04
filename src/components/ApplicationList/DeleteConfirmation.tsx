@@ -31,7 +31,12 @@ const DeleteConfirmation: React.FC<Props> = ({ application }) => {
 
   return (
     <>
-      <Button variant="ghost" size="sm" onClick={onOpen}>
+      <Button
+        variant="unstyled"
+        _hover={{ opacity: "0.5" }}
+        size="sm"
+        onClick={onOpen}
+      >
         <Icon as={FiTrash} />
       </Button>
 

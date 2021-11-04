@@ -48,38 +48,49 @@ const NewApplication = () => {
     >
       <form onSubmit={(e) => handleSubmit(e)} style={{ width: "100%" }}>
         <Flex w="100%" justify="space-around" align="center" mb="0.2rem">
-          <Flex align="center">
-            <Text fontSize="0.8rem">Title:&nbsp;</Text>
-            <Input
-              maxW="380px"
-              type="text"
-              onChange={(e) => setJobTitle(e.target.value)}
-              value={jobTitle}
-            />
+          <Flex maxW="500px" flexWrap="wrap">
+            <Flex align="center" mb="0.2rem" mr="0.6rem">
+              <Text fontSize="0.8rem">Title:&nbsp;</Text>
+              <Input
+                maxW="380px"
+                type="text"
+                onChange={(e) => setJobTitle(e.target.value)}
+                value={jobTitle}
+              />
+            </Flex>
+            <Flex align="center">
+              <Text fontSize="0.8rem">Company:&nbsp;</Text>
+              <Input
+                maxW="180px"
+                type="text"
+                onChange={(e) => setCompanyName(e.target.value)}
+                value={companyName}
+              />
+            </Flex>
           </Flex>
           <Flex align="center">
-            <Text fontSize="0.8rem">Company:&nbsp;</Text>
-            <Input
-              maxW="180px"
-              type="text"
-              onChange={(e) => setCompanyName(e.target.value)}
-              value={companyName}
-            />
+            <Button
+              mr="0.5rem"
+              type="submit"
+              size="sm"
+              colorScheme="blue"
+              variant="solid"
+            >
+              <Text color="white" mr="0.3rem" fontSize="0.8rem">
+                Add New
+              </Text>
+              <AddIcon />
+            </Button>
+            <Button
+              size="xs"
+              color="gray"
+              variant="ghost"
+              onClick={() => setShowingLinks(!isShowingLinks)}
+              _focus={{ outline: "none" }}
+            >
+              {isShowingLinks ? <TriangleUpIcon /> : <TriangleDownIcon />}
+            </Button>
           </Flex>
-          <Button type="submit" size="sm" colorScheme="blue" variant="solid">
-            <Text color="white" mr="0.3rem" fontSize="0.8rem">
-              Add New
-            </Text>
-            <AddIcon />
-          </Button>
-          <Button
-            size="xs"
-            color="gray"
-            variant="ghost"
-            onClick={() => setShowingLinks(!isShowingLinks)}
-          >
-            {isShowingLinks ? <TriangleUpIcon /> : <TriangleDownIcon />}
-          </Button>
         </Flex>
         <Flex
           display={isShowingLinks ? "flex" : "none"}

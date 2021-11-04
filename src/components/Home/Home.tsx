@@ -57,7 +57,7 @@ const Home: React.FC<IProps> = ({ data }) => {
       align="center"
       direction="column"
     >
-      <Box w="100%" h="100%" maxW="800px" minW="400px">
+      <Box w="100%" h="100%" maxW="800px" minW="520px">
         <NewApplication />
         <SortAndFilter sortingBy={sortingBy} setSortingBy={setSortingBy} />
         <ul

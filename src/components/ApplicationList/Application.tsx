@@ -50,7 +50,8 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
         direction="column"
         align="center"
         p="0.2rem 0.5rem"
-        _hover={{ backgroundColor: "rgb(0, 0, 0, 0.05)" }}
+        transition="0.2s ease-in-out"
+        _hover={{ backgroundColor: "rgb(0, 0, 0, 0.1)" }}
       >
         <Flex justify="space-around" align="center" p="0.5rem 0.5rem" w="100%">
           <a href={posting_link} style={{ marginRight: "auto" }}>
@@ -84,13 +85,18 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
                 border="solid 1px"
                 borderColor={determineBadgeColor(status)}
                 color="gray"
+                _hover={{ bgColor: "transparent" }}
+                _focus={{ outline: "none" }}
               >
                 {
                   <Text color={determineBadgeColor(status)} as="span">
                     {status}
                   </Text>
                 }
-                <ChevronDownIcon color="gray" fontSize="1rem" />
+                <ChevronDownIcon
+                  color={determineBadgeColor(status)}
+                  fontSize="1rem"
+                />
               </MenuButton>
               <MenuList>
                 {statusMenuItems.map((status, index) => {
@@ -122,7 +128,9 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
             <Badge colorScheme="blue" mr="0.5rem">
               Remote
             </Badge>
-            <Text fontSize="0.7rem">Office: {office_loc}</Text>
+            {office_loc ? (
+              <Text fontSize="0.7rem">Office: {office_loc}</Text>
+            ) : null}
           </Flex>
           <Flex>
             <Text fontSize="0.7rem" minW="80px">
