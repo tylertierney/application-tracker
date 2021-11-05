@@ -1,6 +1,6 @@
 import ApplicationListItem from "../ApplicationList/Application";
 
-import { Flex, Text, Box } from "@chakra-ui/react";
+import { Flex, Text, Box, Divider } from "@chakra-ui/react";
 
 import NewApplication from "../NewApplication/NewApplication";
 import SortAndFilter from "../SortAndFilter/SortAndFilter";
@@ -8,9 +8,6 @@ import SortAndFilter from "../SortAndFilter/SortAndFilter";
 import "./home.css";
 
 import { useState } from "react";
-import { getInitialDataFromAPI } from "../../helperFunctions";
-
-import axios from "axios";
 
 export interface ApplicationType {
   job_title: string;
@@ -48,8 +45,6 @@ const Home: React.FC<IProps> = ({ data }) => {
     return <ApplicationListItem key={index} application={app} />;
   });
 
-  console.log(data);
-
   return (
     <Flex
       minW="100vw"
@@ -59,7 +54,7 @@ const Home: React.FC<IProps> = ({ data }) => {
       align="center"
       direction="column"
     >
-      <Box w="100%" h="100%" maxW="800px" minW="380px">
+      <Box w="100%" h="100%" maxW="800px" minW="380px" p="0.2rem 0.8rem">
         {/* <button onClick={() => apiTest()}>api</button> */}
         <NewApplication />
         <SortAndFilter sortingBy={sortingBy} setSortingBy={setSortingBy} />
@@ -78,6 +73,7 @@ const Home: React.FC<IProps> = ({ data }) => {
           ) : (
             <>
               {appArray}
+              <Divider />
               <Flex w="100%" p="0.2rem 0.8rem" justify="flex-end">
                 <Text fontSize="1.1rem">Total:&nbsp;</Text>
                 <Text fontSize="1.1rem" fontWeight="bold">

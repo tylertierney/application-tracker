@@ -8,7 +8,10 @@ import {
   MenuItem,
   Button,
   Badge,
+  Icon,
 } from "@chakra-ui/react";
+
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 import DeleteConfirmation from "./DeleteConfirmation";
 
@@ -58,6 +61,7 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
         _hover={{ backgroundColor: "rgb(0, 0, 0, 0.1)" }}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
+        onClick={() => setIsHovering(true)}
       >
         <Flex justify="space-around" align="center" p="0.5rem 0.5rem" w="100%">
           <Flex align="center" wrap="wrap">
@@ -88,7 +92,8 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
                 fontSize="0.8rem"
                 minW="100px"
                 maxW="100px"
-                maxH="2rem"
+                maxH={["1.6rem", "2rem"]}
+                paddingX={["0rem", "0rem", "0.2rem"]}
                 bgColor="transparent"
                 border="solid 1px"
                 borderColor={determineBtnColor(status)}
@@ -147,12 +152,18 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
               </Badge>
             ) : null}
             {office_loc ? (
-              <Text fontSize="0.7rem">Office: {office_loc}</Text>
+              <Flex align="center" fontSize="0.7rem">
+                <Icon as={FaMapMarkerAlt} color="blue.700" fontSize="inherit" />
+                <Text fontSize="inherit" fontWeight="medium">
+                  &nbsp;
+                  {office_loc}
+                </Text>
+              </Flex>
             ) : null}
           </Flex>
           <Flex>
             <Text fontSize="0.7rem" minW="80px" mr="0.5rem">
-              {found_via ? `Found via ${found_via}` : ""}
+              {found_via ? `via ${found_via}` : ""}
             </Text>
             <Text fontSize="0.7rem">
               {date === undefined || date === null ? "" : convertedDate}

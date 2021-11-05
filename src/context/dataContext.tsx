@@ -1,15 +1,4 @@
-import {
-  useContext,
-  createContext,
-  useReducer,
-  useState,
-  useEffect,
-} from "react";
-
-import {
-  getDataFromLocalStorage,
-  getInitialDataFromAPI,
-} from "../helperFunctions";
+import { useContext, createContext, useReducer, useEffect } from "react";
 
 import axios from "axios";
 
@@ -59,7 +48,7 @@ const DataProvider: React.FC = ({ children }: any) => {
       }
     });
 
-    localStorage.setItem("jobapps-data", JSON.stringify(copyOfData));
+    // localStorage.setItem("jobapps-data", JSON.stringify(copyOfData));
 
     dispatch({ type: "changeStatus", payload: copyOfData });
   };
@@ -95,7 +84,7 @@ const DataProvider: React.FC = ({ children }: any) => {
 
     copyOfData.unshift(appObject);
 
-    localStorage.setItem("jobapps-data", JSON.stringify(copyOfData));
+    // localStorage.setItem("jobapps-data", JSON.stringify(copyOfData));
 
     axios
       .post("/updatedata", { data: copyOfData })
@@ -114,7 +103,12 @@ const DataProvider: React.FC = ({ children }: any) => {
 
     copyOfData.splice(foundAppIndex, 1);
 
-    localStorage.setItem("jobapps-data", JSON.stringify(copyOfData));
+    axios
+      .post("/updatedata", { data: copyOfData })
+      // .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+
+    // localStorage.setItem("jobapps-data", JSON.stringify(copyOfData));
 
     dispatch({ type: "deleteApplication", payload: copyOfData });
   };
