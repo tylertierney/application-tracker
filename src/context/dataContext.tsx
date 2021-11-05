@@ -1,6 +1,11 @@
 import { useContext, createContext, useReducer } from "react";
 
-import { getDataFromLocalStorage } from "../helperFunctions";
+import {
+  getDataFromLocalStorage,
+  getInitialDataFromAPI,
+} from "../helperFunctions";
+
+import axios from "axios";
 
 export const DataContext = createContext<any>(null);
 
@@ -19,6 +24,7 @@ const DataProvider: React.FC = ({ children }: any) => {
   };
 
   const [data, dispatch] = useReducer(reducer, getDataFromLocalStorage());
+  // const [data, dispatch] = useReducer(reducer, getInitialDataFromAPI());
 
   const changeStatus = (id: number, newStatus: string) => {
     let copyOfData = [...data];
@@ -40,11 +46,13 @@ const DataProvider: React.FC = ({ children }: any) => {
     company: string,
     found_via: string,
     office_loc: string,
-    job_loc: string,
+    jobType: string,
     linkedin_link: string,
     date: Date
   ) => {
     let copyOfData = [...data];
+
+    console.log(jobType);
 
     const currentDate = new Date();
 
@@ -56,8 +64,8 @@ const DataProvider: React.FC = ({ children }: any) => {
       company,
       found_via,
       office_loc,
-      job_loc,
       linkedin_link,
+      jobType,
       status: "Pending",
       id,
       date: currentDate,
@@ -66,6 +74,11 @@ const DataProvider: React.FC = ({ children }: any) => {
     copyOfData.unshift(appObject);
 
     localStorage.setItem("jobapps-data", JSON.stringify(copyOfData));
+
+    axios
+      .post("/updatedata", { data: copyOfData })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
 
     dispatch({ type: "addNewApplication", payload: copyOfData });
   };

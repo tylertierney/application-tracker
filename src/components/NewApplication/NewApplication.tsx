@@ -1,4 +1,4 @@
-import { Flex, Text, Button, Input } from "@chakra-ui/react";
+import { Flex, Text, Button, Input, RadioGroup, Radio } from "@chakra-ui/react";
 
 import { AddIcon, TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 
@@ -13,7 +13,7 @@ const NewApplication = () => {
   const [linkedInLink, setLinkedInLink] = useState("");
   const [foundVia, setFoundVia] = useState("");
   const [officeLocation, setOfficeLocation] = useState("");
-  const [jobLocation, setJobLocation] = useState("");
+  const [jobType, setJobType] = useState("");
 
   const [isShowingLinks, setShowingLinks] = useState(false);
 
@@ -22,17 +22,23 @@ const NewApplication = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    console.log(jobTitle, companyName, postingLink);
-
     addNewApplication(
       jobTitle,
       postingLink,
       companyName,
       foundVia,
       officeLocation,
-      jobLocation,
+      jobType,
       linkedInLink
     );
+
+    setJobTitle("");
+    setCompanyName("");
+    setPostingLink("");
+    setLinkedInLink("");
+    setFoundVia("");
+    setOfficeLocation("");
+    setJobType("");
   };
 
   return (
@@ -49,7 +55,7 @@ const NewApplication = () => {
       <form onSubmit={(e) => handleSubmit(e)} style={{ width: "100%" }}>
         <Flex w="100%" justify="space-around" align="center" mb="0.2rem">
           <Flex maxW="500px" flexWrap="wrap">
-            <Flex align="center" mb="0.2rem" mr="0.6rem">
+            <Flex align="center" mb="0.2rem" mr="0.8rem">
               <Text fontSize="0.8rem">Title:&nbsp;</Text>
               <Input
                 maxW="380px"
@@ -82,7 +88,7 @@ const NewApplication = () => {
               <AddIcon />
             </Button>
             <Button
-              size="xs"
+              size="sm"
               color="gray"
               variant="ghost"
               onClick={() => setShowingLinks(!isShowingLinks)}
@@ -138,14 +144,22 @@ const NewApplication = () => {
             />
           </Flex>
           <Flex align="center" mb="0.2rem">
-            <Text fontSize="0.8rem" minW="100px">
-              Job Location&nbsp;
+            <Text minW="100px" fontSize="0.8rem">
+              Job Type
             </Text>
-            <Input
-              type="text"
-              onChange={(e) => setJobLocation(e.target.value)}
-              value={jobLocation}
-            />
+            <RadioGroup
+              display="flex"
+              alignContent="center"
+              onChange={setJobType}
+              value={jobType}
+            >
+              <Radio value="Remote" mr="1rem">
+                <Text fontSize="0.8rem">Remote</Text>
+              </Radio>
+              <Radio value="On-site/Hybrid">
+                <Text fontSize="0.8rem">On-site/hybrid</Text>
+              </Radio>
+            </RadioGroup>
           </Flex>
         </Flex>
       </form>

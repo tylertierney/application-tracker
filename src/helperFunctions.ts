@@ -1,4 +1,6 @@
-export const determineBadgeColor = (status: string) => {
+import axios from "axios";
+
+export const determineBtnColor = (status: string) => {
   switch (status) {
     case "Pending":
       return "blue.400";
@@ -14,6 +16,17 @@ export const determineBadgeColor = (status: string) => {
   }
 };
 
+export const determineBadgeColor = (jobType: string) => {
+  switch (jobType) {
+    case "Remote":
+      return "blue";
+    case "On-site/Hybrid":
+      return "orange";
+    default:
+      return "blue";
+  }
+};
+
 export const getDataFromLocalStorage = () => {
   const dataFromLocal: string | null = localStorage.getItem("jobapps-data");
 
@@ -22,4 +35,11 @@ export const getDataFromLocalStorage = () => {
   }
   const parsedFromLocal: Array<Object> = JSON.parse(dataFromLocal);
   return parsedFromLocal;
+};
+
+export const getInitialDataFromAPI = async () => {
+  return axios
+    .get("/")
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
 };

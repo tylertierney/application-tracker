@@ -9,6 +9,7 @@ import {
   Button,
   useDisclosure,
   Icon,
+  Text,
 } from "@chakra-ui/react";
 
 import { FiTrash } from "react-icons/fi";
@@ -44,9 +45,17 @@ const DeleteConfirmation: React.FC<Props> = ({ application }) => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Delete Application</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton _focus={{ outline: "none" }} />
           <ModalBody>
-            Are you sure you want to delete the job application?
+            Are you sure you want to delete the job application for{" "}
+            <Text as="span" fontWeight="bold">
+              {application.job_title}
+            </Text>{" "}
+            at{" "}
+            <Text as="span" fontWeight="bold">
+              {application.company}
+            </Text>
+            ?
           </ModalBody>
 
           <ModalFooter>

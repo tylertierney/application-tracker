@@ -1,9 +1,7 @@
 // import ApplicationListItem from "../../ApplicationList/Application";
 import ApplicationListItem from "../ApplicationList/Application";
 
-import { Flex, Button, Text, Box } from "@chakra-ui/react";
-
-import { AddIcon } from "@chakra-ui/icons";
+import { Flex, Text, Box } from "@chakra-ui/react";
 
 import NewApplication from "../NewApplication/NewApplication";
 import SortAndFilter from "../SortAndFilter/SortAndFilter";
@@ -11,6 +9,8 @@ import SortAndFilter from "../SortAndFilter/SortAndFilter";
 import "./home.css";
 
 import { useState } from "react";
+import { getInitialDataFromAPI } from "../../helperFunctions";
+import axios from "axios";
 
 export interface ApplicationType {
   job_title: string;
@@ -18,8 +18,8 @@ export interface ApplicationType {
   company: string;
   found_via: string;
   office_loc: string;
-  job_loc: string;
   linkedin_link: string;
+  jobType: string;
   status: string;
   id: number;
   date?: Date;
@@ -57,7 +57,10 @@ const Home: React.FC<IProps> = ({ data }) => {
       align="center"
       direction="column"
     >
-      <Box w="100%" h="100%" maxW="800px" minW="520px">
+      <Box w="100%" h="100%" maxW="800px" minW="380px">
+        <button onClick={() => console.log(getInitialDataFromAPI())}>
+          api
+        </button>
         <NewApplication />
         <SortAndFilter sortingBy={sortingBy} setSortingBy={setSortingBy} />
         <ul
@@ -71,6 +74,9 @@ const Home: React.FC<IProps> = ({ data }) => {
           }}
         >
           {appArray}
+          <Flex w="100%" p="0.2rem 0.8rem" justify="flex-end">
+            <Text fontSize="0.8rem">Total: {data.length}</Text>
+          </Flex>
         </ul>
       </Box>
     </Flex>
