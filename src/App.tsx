@@ -4,9 +4,8 @@ import { useData } from "./context/dataContext";
 import { Box } from "@chakra-ui/react";
 
 const App = () => {
-  const { data, changeStatus } = useData();
+  const { data } = useData();
 
-  console.log(data);
   return (
     <Box overflowX="hidden">
       <Home data={data} />

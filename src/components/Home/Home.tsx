@@ -1,4 +1,3 @@
-// import ApplicationListItem from "../../ApplicationList/Application";
 import ApplicationListItem from "../ApplicationList/Application";
 
 import { Flex, Text, Box } from "@chakra-ui/react";
@@ -10,6 +9,7 @@ import "./home.css";
 
 import { useState } from "react";
 import { getInitialDataFromAPI } from "../../helperFunctions";
+
 import axios from "axios";
 
 export interface ApplicationType {
@@ -44,9 +44,11 @@ const Home: React.FC<IProps> = ({ data }) => {
     });
   }
 
-  const appArray = data.map((app, index) => {
+  const appArray = data?.map((app, index) => {
     return <ApplicationListItem key={index} application={app} />;
   });
+
+  console.log(data);
 
   return (
     <Flex
@@ -58,9 +60,7 @@ const Home: React.FC<IProps> = ({ data }) => {
       direction="column"
     >
       <Box w="100%" h="100%" maxW="800px" minW="380px">
-        <button onClick={() => console.log(getInitialDataFromAPI())}>
-          api
-        </button>
+        {/* <button onClick={() => apiTest()}>api</button> */}
         <NewApplication />
         <SortAndFilter sortingBy={sortingBy} setSortingBy={setSortingBy} />
         <ul
@@ -73,10 +73,19 @@ const Home: React.FC<IProps> = ({ data }) => {
             overflow: "hidden",
           }}
         >
-          {appArray}
-          <Flex w="100%" p="0.2rem 0.8rem" justify="flex-end">
-            <Text fontSize="0.8rem">Total: {data.length}</Text>
-          </Flex>
+          {data === undefined || data === null ? (
+            <p>no data</p>
+          ) : (
+            <>
+              {appArray}
+              <Flex w="100%" p="0.2rem 0.8rem" justify="flex-end">
+                <Text fontSize="1.1rem">Total:&nbsp;</Text>
+                <Text fontSize="1.1rem" fontWeight="bold">
+                  {data.length}
+                </Text>
+              </Flex>
+            </>
+          )}
         </ul>
       </Box>
     </Flex>

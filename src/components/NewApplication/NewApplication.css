@@ -1,0 +1,14 @@
+.radioInputs {
+  appearance: none;
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: transparent;
+  border-radius: 50%;
+  border: 2px solid rgb(0, 0, 0, 0.2);
+  margin: 0 0.2rem 0 0;
+}
+
+.radioInputs:checked {
+  background-color: #3182ce;
+  border: none;
+}

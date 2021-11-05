@@ -37,9 +37,12 @@ export const getDataFromLocalStorage = () => {
   return parsedFromLocal;
 };
 
-export const getInitialDataFromAPI = async () => {
+export const getInitialDataFromAPI = () => {
   return axios
-    .get("/")
-    .then((res) => console.log(res))
+    .get("/api/applications")
+    .then((res) => {
+      console.log(res.data);
+      return res;
+    })
     .catch((err) => console.log(err));
 };

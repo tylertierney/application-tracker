@@ -8,7 +8,6 @@ import {
   MenuItem,
   Button,
   Badge,
-  Box,
 } from "@chakra-ui/react";
 
 import DeleteConfirmation from "./DeleteConfirmation";
@@ -17,11 +16,15 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import { determineBtnColor, determineBadgeColor } from "../../helperFunctions";
 import { useData } from "../../context/dataContext";
 
+import { useRef, useState } from "react";
+
 interface Props {
   application: ApplicationType;
 }
 
 const ApplicationListItem: React.FC<Props> = ({ application }) => {
+  const [isHovering, setIsHovering] = useState(false);
+
   const { changeStatus } = useData();
 
   const {
@@ -30,7 +33,7 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
     company,
     found_via,
     office_loc,
-    linkedin_link,
+    // linkedin_link,
     jobType,
     status,
     id,
@@ -53,10 +56,11 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
         p="0.2rem 0.5rem"
         transition="0.1s ease-in-out"
         _hover={{ backgroundColor: "rgb(0, 0, 0, 0.1)" }}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
       >
         <Flex justify="space-around" align="center" p="0.5rem 0.5rem" w="100%">
           <Flex align="center" wrap="wrap">
-            {/* <Box m="0" p="0"> */}
             <a href={posting_link} style={{ marginRight: "1rem" }}>
               <Text
                 maxW="240px"
@@ -67,7 +71,6 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
                 {job_title}
               </Text>
             </a>
-            {/* </Box> */}
             <Text
               minW="160px"
               textAlign="left"
@@ -125,7 +128,10 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
                 })}
               </MenuList>
             </Menu>
-            <DeleteConfirmation application={application} />
+            <DeleteConfirmation
+              isHovering={isHovering}
+              application={application}
+            />
           </Flex>
         </Flex>
         <Flex

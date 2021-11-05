@@ -15,14 +15,13 @@ app.post("/updatedata", (req, res) => {
   res.json({ message: "Data sheet has been updated successfully!" });
 });
 
-app.get("/", (req, res) => {
-  console.log(req);
+app.get("/api/applications", (req, res) => {
   fs.readFile("data.json", "utf8", (err, data) => {
     if (err) throw err;
 
     const parsedData = JSON.parse(data);
 
-    res.json({ data: parsedData });
+    res.status(200).json(parsedData);
   });
 });
 

@@ -1,4 +1,10 @@
-import { useContext, createContext, useReducer } from "react";
+import {
+  useContext,
+  createContext,
+  useReducer,
+  useState,
+  useEffect,
+} from "react";
 
 import {
   getDataFromLocalStorage,
@@ -10,8 +16,14 @@ import axios from "axios";
 export const DataContext = createContext<any>(null);
 
 const DataProvider: React.FC = ({ children }: any) => {
+  useEffect(() => {
+    populateInitialData();
+  }, []);
+
   const reducer = (state: any, action: any) => {
     switch (action.type) {
+      case "populateInitialData":
+        return action.payload;
       case "changeStatus":
         return action.payload;
       case "addNewApplication":
@@ -23,8 +35,20 @@ const DataProvider: React.FC = ({ children }: any) => {
     }
   };
 
-  const [data, dispatch] = useReducer(reducer, getDataFromLocalStorage());
-  // const [data, dispatch] = useReducer(reducer, getInitialDataFromAPI());
+  // const [data, dispatch] = useReducer(reducer, getDataFromLocalStorage());
+
+  const [data, dispatch] = useReducer(reducer, null);
+
+  const populateInitialData = () => {
+    axios
+      .get("/api/applications")
+      .then((res) => {
+        console.log(res.data);
+        localStorage.setItem("jobapps-data", JSON.stringify(res.data));
+        dispatch({ type: "changeStatus", payload: res.data });
+      })
+      .catch((err) => console.log(err));
+  };
 
   const changeStatus = (id: number, newStatus: string) => {
     let copyOfData = [...data];
@@ -51,8 +75,6 @@ const DataProvider: React.FC = ({ children }: any) => {
     date: Date
   ) => {
     let copyOfData = [...data];
-
-    console.log(jobType);
 
     const currentDate = new Date();
 
@@ -90,8 +112,6 @@ const DataProvider: React.FC = ({ children }: any) => {
       return app.id === id;
     });
 
-    console.log(foundAppIndex);
-
     copyOfData.splice(foundAppIndex, 1);
 
     localStorage.setItem("jobapps-data", JSON.stringify(copyOfData));
@@ -101,6 +121,7 @@ const DataProvider: React.FC = ({ children }: any) => {
 
   const ctx: any = {
     data,
+    populateInitialData,
     changeStatus,
     addNewApplication,
     deleteApplication,

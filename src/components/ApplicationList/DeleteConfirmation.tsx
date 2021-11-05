@@ -18,9 +18,10 @@ import { useData } from "../../context/dataContext";
 import { ApplicationType } from "../Home/Home";
 interface Props {
   application: ApplicationType;
+  isHovering: Boolean;
 }
 
-const DeleteConfirmation: React.FC<Props> = ({ application }) => {
+const DeleteConfirmation: React.FC<Props> = ({ application, isHovering }) => {
   const { deleteApplication } = useData();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -33,6 +34,8 @@ const DeleteConfirmation: React.FC<Props> = ({ application }) => {
   return (
     <>
       <Button
+        opacity={isHovering ? "1" : "0"}
+        transition="0.1s ease-in-out"
         variant="unstyled"
         _hover={{ opacity: "0.5" }}
         size="sm"

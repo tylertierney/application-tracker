@@ -1,10 +1,12 @@
-import { Flex, Text, Button, Input, RadioGroup, Radio } from "@chakra-ui/react";
+import { Flex, Text, Button, Input } from "@chakra-ui/react";
 
 import { AddIcon, TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 
 import { useState } from "react";
 
 import { useData } from "../../context/dataContext";
+
+import "./NewApplication.css";
 
 const NewApplication = () => {
   const [jobTitle, setJobTitle] = useState("");
@@ -147,19 +149,38 @@ const NewApplication = () => {
             <Text minW="100px" fontSize="0.8rem">
               Job Type
             </Text>
-            <RadioGroup
-              display="flex"
-              alignContent="center"
-              onChange={setJobType}
-              value={jobType}
-            >
-              <Radio value="Remote" mr="1rem">
-                <Text fontSize="0.8rem">Remote</Text>
-              </Radio>
-              <Radio value="On-site/Hybrid">
-                <Text fontSize="0.8rem">On-site/hybrid</Text>
-              </Radio>
-            </RadioGroup>
+            <Flex align="center" mr="1rem">
+              <input
+                onChange={(e) => setJobType(e.target.value)}
+                className="radioInputs"
+                value="Remote"
+                type="radio"
+                id="Remote"
+                name="jobType"
+              />
+              <label
+                htmlFor="Remote"
+                style={{ fontSize: "0.8rem", color: "#696969" }}
+              >
+                Remote
+              </label>
+            </Flex>
+            <Flex align="center" mr="1rem">
+              <input
+                onChange={(e) => setJobType(e.target.value)}
+                className="radioInputs"
+                value="On-site/Hybrid"
+                type="radio"
+                id="On-site/Hybrid"
+                name="jobType"
+              />
+              <label
+                htmlFor="On-site/Hybrid"
+                style={{ fontSize: "0.8rem", color: "#696969" }}
+              >
+                On-site/Hybrid
+              </label>
+            </Flex>
           </Flex>
         </Flex>
       </form>
