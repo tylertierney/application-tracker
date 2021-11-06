@@ -1,4 +1,4 @@
-import { ApplicationType } from "../Home/Home";
+import { ApplicationType } from "../../Home/Home";
 import {
   Flex,
   Text,
@@ -14,15 +14,20 @@ import {
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 
-import DeleteConfirmation from "./DeleteConfirmation";
+import DeleteConfirmation from "../DeleteConfirmation";
 
 import { isMobile } from "react-device-detect";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { determineBtnColor, determineBadgeColor } from "../../helperFunctions";
-import { useData } from "../../context/dataContext";
+import {
+  determineBtnColor,
+  determineBadgeColor,
+} from "../../../helperFunctions";
+import { useData } from "../../../context/dataContext";
 
 import { useRef, useState } from "react";
+
+import StatusMenu from "./StatusMenu";
 
 interface applicationListRefType {
   current: any;
@@ -31,12 +36,16 @@ interface applicationListRefType {
 interface Props {
   application: ApplicationType;
   applicationListRef: applicationListRefType;
+  setSelectedApplication: Function;
 }
 
 const ApplicationListItem: React.FC<Props> = ({
   application,
   applicationListRef,
+  setSelectedApplication,
 }) => {
+  const listItemRef = useRef(null);
+
   const [isHovering, setIsHovering] = useState(false);
 
   const { changeStatus } = useData();
@@ -55,8 +64,6 @@ const ApplicationListItem: React.FC<Props> = ({
     descriptionFromLinkedin,
   } = application;
 
-  const statusMenuItems = ["Pending", "Rejected", "Interview"];
-
   let convertedDate = "";
   if (date) {
     convertedDate = new Date(date).toLocaleDateString();
@@ -70,6 +77,7 @@ const ApplicationListItem: React.FC<Props> = ({
       left: maxScrollWidth,
       behavior: "smooth",
     });
+    setSelectedApplication(application);
   };
 
   return (
@@ -84,6 +92,7 @@ const ApplicationListItem: React.FC<Props> = ({
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
         onClick={() => handleClick()}
+        ref={listItemRef}
       >
         <Flex justify="space-around" align="center" p="0.5rem 0.5rem" w="100%">
           <Flex align="center" wrap="wrap">
@@ -108,57 +117,7 @@ const ApplicationListItem: React.FC<Props> = ({
             </Text>
           </Flex>
           <Flex align="center" justify="space-around" ml="auto">
-            <Menu>
-              <MenuButton
-                marginRight="0.5rem"
-                as={Button}
-                fontSize="0.8rem"
-                minW="100px"
-                maxW="100px"
-                maxH={["1.6rem", "2rem"]}
-                bgColor="transparent"
-                border="solid 1px"
-                borderColor={determineBtnColor(status)}
-                color="gray"
-                _hover={{ bgColor: "transparent" }}
-                _focus={{ outline: "none" }}
-              >
-                {
-                  <Text color={determineBtnColor(status)} as="span">
-                    {status}
-                  </Text>
-                }
-                <ChevronDownIcon
-                  color={determineBtnColor(status)}
-                  fontSize="1rem"
-                />
-              </MenuButton>
-              <MenuList>
-                {statusMenuItems.map((status, index) => {
-                  return (
-                    <MenuItem
-                      key={index}
-                      transition="0.3s ease-in-out"
-                      _hover={{
-                        bgColor: determineBtnColor(status),
-                        color: "white",
-                      }}
-                      _focus={{
-                        bgColor: determineBtnColor(status),
-                        color: "white",
-                      }}
-                      onClick={() => changeStatus(id, status)}
-                    >
-                      {status}
-                    </MenuItem>
-                  );
-                })}
-              </MenuList>
-            </Menu>
-            {/* <DeleteConfirmation
-              isHovering={isHovering}
-              application={application}
-            /> */}
+            <StatusMenu id={id} status={status} />
             <Icon
               transition="0.05s ease-in-out"
               opacity={isHovering ? "0.5" : "0"}

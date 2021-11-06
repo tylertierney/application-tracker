@@ -10,6 +10,8 @@ import { useState } from "react";
 
 import { isMobile } from "react-device-detect";
 
+import smoothscroll from "smoothscroll-polyfill";
+
 export interface ApplicationType {
   job_title: string;
   posting_link: string;
@@ -29,6 +31,8 @@ interface IProps {
 }
 
 const Home: React.FC<IProps> = ({ data }) => {
+  smoothscroll.polyfill();
+
   const [sortingBy, setSortingBy] = useState("");
 
   if (sortingBy === "Status") {
@@ -57,6 +61,7 @@ const Home: React.FC<IProps> = ({ data }) => {
       align="center"
       direction="column"
       overflowY="hidden"
+      overflowX="hidden"
     >
       <Box
         w="100%"

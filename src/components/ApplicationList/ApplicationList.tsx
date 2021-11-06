@@ -1,8 +1,10 @@
-import { Box, Flex, Text, Divider } from "@chakra-ui/react";
+import { Box, Flex, Text, Divider, Icon, Button } from "@chakra-ui/react";
 
-import ApplicationListItem from "./Application";
+import ApplicationListItem from "./ApplicationListItem/ApplicationListItem";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
+
+import Description from "./Description/Description";
 
 export interface ApplicationType {
   job_title: string;
@@ -24,6 +26,8 @@ interface Props {
 }
 
 const ApplicationList: React.FC<Props> = ({ data, newApplicationIsOpen }) => {
+  const [selectedApplication, setSelectedApplication] = useState(null);
+
   const applicationListRef = useRef(null);
 
   const appArray = data?.map((app, index) => {
@@ -32,11 +36,10 @@ const ApplicationList: React.FC<Props> = ({ data, newApplicationIsOpen }) => {
         applicationListRef={applicationListRef}
         key={index}
         application={app}
+        setSelectedApplication={setSelectedApplication}
       />
     );
   });
-
-  console.log(applicationListRef);
 
   return (
     <Box
@@ -46,7 +49,8 @@ const ApplicationList: React.FC<Props> = ({ data, newApplicationIsOpen }) => {
       padding="0.5rem 0rem"
       boxShadow="0px 0px 10px 1px rgb(0, 0, 0, 0.2)"
       display="inline-flex"
-      overflowX="scroll"
+      overflowX="hidden"
+      className="hideScrollbar"
       ref={applicationListRef}
     >
       <Box h="100%" w="100%" minW="100%">
@@ -69,9 +73,10 @@ const ApplicationList: React.FC<Props> = ({ data, newApplicationIsOpen }) => {
           </Text>
         </Flex>
       </Box>
-      <Box h="100%" w="100%" minW="100%" border="solid red 1px">
-        s
-      </Box>
+      <Description
+        applicationListRef={applicationListRef}
+        selectedApplication={selectedApplication}
+      />
     </Box>
   );
 };
