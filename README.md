@@ -1,3 +1,3 @@
 # Job Application Tracker
 
-This application is built with Typescript, React, and Chakra UI. This app is a lightweight tracker for job applications that uses local storage for data persistence. Because of this, it is not recommended to use the app for any permanent data storage; make sure to keep a local file or spreadsheet if you don't want to lose anything.
+This application is built with Typescript, React, and Chakra UI. The site is a lightweight, job-tracking application that uses Node to communicate with a json file and perform CRUD operations as directed by the React frontend.
