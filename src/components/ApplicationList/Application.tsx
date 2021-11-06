@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { IoIosArrowForward } from "react-icons/io";
 
 import DeleteConfirmation from "./DeleteConfirmation";
 
@@ -23,11 +24,19 @@ import { useData } from "../../context/dataContext";
 
 import { useRef, useState } from "react";
 
-interface Props {
-  application: ApplicationType;
+interface applicationListRefType {
+  current: any;
 }
 
-const ApplicationListItem: React.FC<Props> = ({ application }) => {
+interface Props {
+  application: ApplicationType;
+  applicationListRef: applicationListRefType;
+}
+
+const ApplicationListItem: React.FC<Props> = ({
+  application,
+  applicationListRef,
+}) => {
   const [isHovering, setIsHovering] = useState(false);
 
   const { changeStatus } = useData();
@@ -53,6 +62,16 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
     convertedDate = new Date(date).toLocaleDateString();
   }
 
+  const handleClick = () => {
+    setIsHovering(true);
+    const maxScrollWidth = applicationListRef.current.clientWidth;
+    applicationListRef.current.scrollTo({
+      top: 0,
+      left: maxScrollWidth,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <li style={{ listStyleType: "none" }}>
       <Flex
@@ -64,7 +83,7 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
         _hover={isHovering ? { backgroundColor: "rgb(0 , 0, 0, 0.1)" } : {}}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
-        onClick={() => setIsHovering(true)}
+        onClick={() => handleClick()}
       >
         <Flex justify="space-around" align="center" p="0.5rem 0.5rem" w="100%">
           <Flex align="center" wrap="wrap">
@@ -136,9 +155,15 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
                 })}
               </MenuList>
             </Menu>
-            <DeleteConfirmation
+            {/* <DeleteConfirmation
               isHovering={isHovering}
               application={application}
+            /> */}
+            <Icon
+              transition="0.05s ease-in-out"
+              opacity={isHovering ? "0.5" : "0"}
+              fontSize="1.5rem"
+              as={IoIosArrowForward}
             />
           </Flex>
         </Flex>

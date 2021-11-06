@@ -1,13 +1,14 @@
-import ApplicationListItem from "../ApplicationList/Application";
-
 import { Flex, Text, Box, Divider } from "@chakra-ui/react";
 
 import NewApplication from "../NewApplication/NewApplication";
 import SortAndFilter from "../SortAndFilter/SortAndFilter";
+import ApplicationList from "../ApplicationList/ApplicationList";
 
 import "./home.css";
 
 import { useState } from "react";
+
+import { isMobile } from "react-device-detect";
 
 export interface ApplicationType {
   job_title: string;
@@ -42,47 +43,46 @@ const Home: React.FC<IProps> = ({ data }) => {
     });
   }
 
-  const appArray = data?.map((app, index) => {
-    return <ApplicationListItem key={index} application={app} />;
-  });
+  const [newApplicationIsOpen, setNewApplicationIsOpen] = useState(false);
 
   return (
     <Flex
       minW="100vw"
+      maxW="100vw"
       minH="100vh"
+      maxH="100vh"
+      height="100vh"
       p="1rem"
       justify="flex-start"
       align="center"
       direction="column"
+      overflowY="hidden"
     >
-      <Box w="100%" h="100%" maxW="800px" minW="380px" p="0.2rem 0.8rem">
-        <NewApplication />
+      <Box
+        w="100%"
+        h={isMobile ? "82vh" : "100vh"}
+        maxW="800px"
+        minW="380px"
+        p="0.2rem 0.8rem"
+        overflowY="hidden"
+      >
+        <NewApplication
+          newApplicationIsOpen={newApplicationIsOpen}
+          setNewApplicationIsOpen={setNewApplicationIsOpen}
+        />
         <SortAndFilter sortingBy={sortingBy} setSortingBy={setSortingBy} />
-        <ul
-          style={{
-            width: "100%",
-            height: "100%",
-            borderRadius: "10px",
-            padding: "0.5rem 0rem",
-            boxShadow: "0px 0px 10px 1px rgb(0, 0, 0, 0.2)",
-            overflow: "hidden",
-          }}
-        >
+        <Box height={newApplicationIsOpen ? "30%" : "80%"}>
           {data === undefined || data === null ? (
-            <p>no data</p>
+            <Flex justify="center" align="center" w="100%" h="100%">
+              <Text>no data</Text>
+            </Flex>
           ) : (
-            <>
-              {appArray}
-              <Divider />
-              <Flex w="100%" p="0.2rem 0.8rem" justify="flex-end">
-                <Text fontSize="1.1rem">Total:&nbsp;</Text>
-                <Text fontSize="1.1rem" fontWeight="bold">
-                  {data.length}
-                </Text>
-              </Flex>
-            </>
+            <ApplicationList
+              data={data}
+              newApplicationIsOpen={newApplicationIsOpen}
+            />
           )}
-        </ul>
+        </Box>
       </Box>
     </Flex>
   );

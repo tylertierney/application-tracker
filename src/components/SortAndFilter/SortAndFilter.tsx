@@ -19,7 +19,7 @@ interface Props {
 
 const SortAndFilter: React.FC<Props> = ({ sortingBy, setSortingBy }) => {
   return (
-    <Flex w="100%" justify="flex-end" mb="0.5rem">
+    <Flex h="10%" w="100%" justify="flex-end" align="center">
       <Menu>
         <MenuButton as={Button} variant="ghost" size="sm">
           <Icon as={MdSort} color="gray" fontSize="2rem" />

@@ -8,7 +8,15 @@ import { useData } from "../../context/dataContext";
 
 import "./NewApplication.css";
 
-const NewApplication = () => {
+interface Props {
+  newApplicationIsOpen: Boolean;
+  setNewApplicationIsOpen: Function;
+}
+
+const NewApplication: React.FC<Props> = ({
+  newApplicationIsOpen,
+  setNewApplicationIsOpen,
+}) => {
   const [jobTitle, setJobTitle] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [postingLink, setPostingLink] = useState("");
@@ -16,8 +24,6 @@ const NewApplication = () => {
   const [foundVia, setFoundVia] = useState("");
   const [officeLocation, setOfficeLocation] = useState("");
   const [jobType, setJobType] = useState("");
-
-  const [isShowingLinks, setShowingLinks] = useState(false);
 
   const { addNewApplication } = useData();
 
@@ -47,36 +53,26 @@ const NewApplication = () => {
     <Flex
       direction="column"
       w="100%"
-      height="100%"
       borderRadius="10px"
-      mb="1rem"
       boxShadow="0px 0px 10px 1px rgb(0, 0, 0, 0.2)"
       align="flex-start"
       p="0.5rem 0.5rem"
+      height={newApplicationIsOpen ? "60%" : "10%"}
+      justify="center"
     >
       <form onSubmit={(e) => handleSubmit(e)} style={{ width: "100%" }}>
-        <Flex w="100%" justify="space-around" align="center" mb="0.2rem">
-          <Flex maxW="500px" flexWrap="wrap">
-            <Flex align="center" mb="0.2rem" mr="0.8rem">
-              <Text fontSize="0.8rem">Title:&nbsp;</Text>
-              <Input
-                maxW="380px"
-                type="text"
-                onChange={(e) => setJobTitle(e.target.value)}
-                value={jobTitle}
-              />
-            </Flex>
-            {/* <Flex align="center">
-              <Text fontSize="0.8rem">Company:&nbsp;</Text>
-              <Input
-                maxW="180px"
-                type="text"
-                onChange={(e) => setCompanyName(e.target.value)}
-                value={companyName}
-              />
-            </Flex> */}
+        <Flex w="100%" justify="space-between" align="center" mb="0.2rem">
+          <Flex align="center" w="100%">
+            <Text fontSize="0.8rem">Title:&nbsp;</Text>
+            <Input
+              size="sm"
+              borderRadius="6px"
+              type="text"
+              onChange={(e) => setJobTitle(e.target.value)}
+              value={jobTitle}
+            />
           </Flex>
-          <Flex align="center">
+          <Flex align="center" ml="0.5rem">
             <Button
               mr="0.5rem"
               type="submit"
@@ -93,15 +89,15 @@ const NewApplication = () => {
               size="sm"
               color="gray"
               variant="ghost"
-              onClick={() => setShowingLinks(!isShowingLinks)}
+              onClick={() => setNewApplicationIsOpen(!newApplicationIsOpen)}
               _focus={{ outline: "none" }}
             >
-              {isShowingLinks ? <TriangleUpIcon /> : <TriangleDownIcon />}
+              {newApplicationIsOpen ? <TriangleUpIcon /> : <TriangleDownIcon />}
             </Button>
           </Flex>
         </Flex>
         <Flex
-          display={isShowingLinks ? "flex" : "none"}
+          display={newApplicationIsOpen ? "flex" : "none"}
           direction="column"
           w="100%"
         >
@@ -110,6 +106,8 @@ const NewApplication = () => {
               Company&nbsp;
             </Text>
             <Input
+              size="sm"
+              borderRadius="6px"
               type="text"
               onChange={(e) => setCompanyName(e.target.value)}
               value={companyName}
@@ -120,6 +118,8 @@ const NewApplication = () => {
               Posting Link&nbsp;
             </Text>
             <Input
+              size="sm"
+              borderRadius="6px"
               type="text"
               onChange={(e) => setPostingLink(e.target.value)}
               value={postingLink}
@@ -130,6 +130,8 @@ const NewApplication = () => {
               LinkedIn Link&nbsp;
             </Text>
             <Input
+              size="sm"
+              borderRadius="6px"
               type="text"
               onChange={(e) => setLinkedInLink(e.target.value)}
               value={linkedInLink}
@@ -140,6 +142,8 @@ const NewApplication = () => {
               Found Via&nbsp;
             </Text>
             <Input
+              size="sm"
+              borderRadius="6px"
               type="text"
               onChange={(e) => setFoundVia(e.target.value)}
               value={foundVia}
@@ -150,6 +154,8 @@ const NewApplication = () => {
               Office Location&nbsp;
             </Text>
             <Input
+              size="sm"
+              borderRadius="6px"
               type="text"
               onChange={(e) => setOfficeLocation(e.target.value)}
               value={officeLocation}
@@ -173,7 +179,10 @@ const NewApplication = () => {
               />
               <label
                 htmlFor="Remote"
-                style={{ fontSize: "0.8rem", color: "#696969" }}
+                style={{
+                  fontSize: "0.8rem",
+                  color: "#696969",
+                }}
               >
                 Remote
               </label>
@@ -190,7 +199,10 @@ const NewApplication = () => {
               />
               <label
                 htmlFor="On-site/Hybrid"
-                style={{ fontSize: "0.8rem", color: "#696969" }}
+                style={{
+                  fontSize: "0.8rem",
+                  color: "#696969",
+                }}
               >
                 On-site/Hybrid
               </label>
