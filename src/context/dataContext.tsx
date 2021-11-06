@@ -1,5 +1,7 @@
 import { useContext, createContext, useReducer, useEffect } from "react";
 
+import { getDescriptionFromLinkedin } from "../helperFunctions";
+
 import axios from "axios";
 
 export const DataContext = createContext<any>(null);
@@ -24,16 +26,13 @@ const DataProvider: React.FC = ({ children }: any) => {
     }
   };
 
-  // const [data, dispatch] = useReducer(reducer, getDataFromLocalStorage());
-
   const [data, dispatch] = useReducer(reducer, null);
 
   const populateInitialData = () => {
     axios
       .get("/api/applications")
       .then((res) => {
-        console.log(res.data);
-        localStorage.setItem("jobapps-data", JSON.stringify(res.data));
+        // localStorage.setItem("jobapps-data", JSON.stringify(res.data));
         dispatch({ type: "changeStatus", payload: res.data });
       })
       .catch((err) => console.log(err));
@@ -53,7 +52,7 @@ const DataProvider: React.FC = ({ children }: any) => {
     dispatch({ type: "changeStatus", payload: copyOfData });
   };
 
-  const addNewApplication = (
+  const addNewApplication = async (
     job_title: string,
     posting_link: string,
     company: string,
@@ -69,6 +68,12 @@ const DataProvider: React.FC = ({ children }: any) => {
 
     const id = copyOfData.length;
 
+    // if (linkedin_link !== undefined && linkedin_link !== null) {
+    //   const description = await getDescriptionFromLinkedin();
+    // }
+
+    const descriptionFromLinkedin = await getDescriptionFromLinkedin();
+
     const appObject = {
       job_title,
       posting_link,
@@ -80,6 +85,7 @@ const DataProvider: React.FC = ({ children }: any) => {
       status: "Pending",
       id,
       date: currentDate,
+      descriptionFromLinkedin,
     };
 
     copyOfData.unshift(appObject);

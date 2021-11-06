@@ -15,6 +15,8 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 
 import DeleteConfirmation from "./DeleteConfirmation";
 
+import { isMobile } from "react-device-detect";
+
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { determineBtnColor, determineBadgeColor } from "../../helperFunctions";
 import { useData } from "../../context/dataContext";
@@ -41,6 +43,7 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
     status,
     id,
     date,
+    descriptionFromLinkedin,
   } = application;
 
   const statusMenuItems = ["Pending", "Rejected", "Interview"];
@@ -58,23 +61,24 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
         align="center"
         p="0.2rem 0.5rem"
         transition="0.1s ease-in-out"
-        _hover={{ backgroundColor: "rgb(0, 0, 0, 0.1)" }}
+        _hover={isHovering ? { backgroundColor: "rgb(0 , 0, 0, 0.1)" } : {}}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
         onClick={() => setIsHovering(true)}
       >
         <Flex justify="space-around" align="center" p="0.5rem 0.5rem" w="100%">
           <Flex align="center" wrap="wrap">
-            <a href={posting_link} style={{ marginRight: "1rem" }}>
-              <Text
-                maxW="240px"
-                minW={["180px", "240px", "240px"]}
-                fontSize={["0.8rem", "0.9rem", "1rem"]}
-                fontWeight="bold"
-              >
-                {job_title}
-              </Text>
-            </a>
+            <Flex
+              maxW="240px"
+              minW={["180px", "240px", "240px"]}
+              userSelect="none"
+            >
+              <a href={posting_link} style={{ marginRight: "1rem" }}>
+                <Text fontSize={["0.8rem", "0.9rem", "1rem"]} fontWeight="bold">
+                  {job_title}
+                </Text>
+              </a>
+            </Flex>
             <Text
               minW="160px"
               textAlign="left"
@@ -93,7 +97,6 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
                 minW="100px"
                 maxW="100px"
                 maxH={["1.6rem", "2rem"]}
-                paddingX={["0rem", "0rem", "0.2rem"]}
                 bgColor="transparent"
                 border="solid 1px"
                 borderColor={determineBtnColor(status)}
@@ -143,11 +146,16 @@ const ApplicationListItem: React.FC<Props> = ({ application }) => {
           justify="space-between"
           align="center"
           w="100%"
-          p="0rem 0.5rem 0.3rem 0.5rem"
+          paddingBottom="0.3rem"
+          paddingX="0.5rem"
         >
           <Flex>
             {jobType ? (
-              <Badge colorScheme={determineBadgeColor(jobType)} mr="0.5rem">
+              <Badge
+                colorScheme={determineBadgeColor(jobType)}
+                mr="0.5rem"
+                fontSize="0.6rem"
+              >
                 {jobType}
               </Badge>
             ) : null}

@@ -20,6 +20,7 @@ export interface ApplicationType {
   status: string;
   id: number;
   date?: Date;
+  descriptionFromLinkedin: string;
 }
 
 interface IProps {
@@ -55,7 +56,6 @@ const Home: React.FC<IProps> = ({ data }) => {
       direction="column"
     >
       <Box w="100%" h="100%" maxW="800px" minW="380px" p="0.2rem 0.8rem">
-        {/* <button onClick={() => apiTest()}>api</button> */}
         <NewApplication />
         <SortAndFilter sortingBy={sortingBy} setSortingBy={setSortingBy} />
         <ul

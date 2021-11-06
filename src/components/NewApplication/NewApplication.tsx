@@ -66,7 +66,7 @@ const NewApplication = () => {
                 value={jobTitle}
               />
             </Flex>
-            <Flex align="center">
+            {/* <Flex align="center">
               <Text fontSize="0.8rem">Company:&nbsp;</Text>
               <Input
                 maxW="180px"
@@ -74,7 +74,7 @@ const NewApplication = () => {
                 onChange={(e) => setCompanyName(e.target.value)}
                 value={companyName}
               />
-            </Flex>
+            </Flex> */}
           </Flex>
           <Flex align="center">
             <Button
@@ -105,6 +105,16 @@ const NewApplication = () => {
           direction="column"
           w="100%"
         >
+          <Flex align="center" mb="0.2rem">
+            <Text fontSize="0.8rem" minW="100px">
+              Company&nbsp;
+            </Text>
+            <Input
+              type="text"
+              onChange={(e) => setCompanyName(e.target.value)}
+              value={companyName}
+            />
+          </Flex>
           <Flex align="center" mb="0.2rem">
             <Text fontSize="0.8rem" minW="100px">
               Posting Link&nbsp;
@@ -157,6 +167,9 @@ const NewApplication = () => {
                 type="radio"
                 id="Remote"
                 name="jobType"
+                checked={
+                  jobType === "" || jobType === "On-site/Hybrid" ? false : true
+                }
               />
               <label
                 htmlFor="Remote"
@@ -173,6 +186,7 @@ const NewApplication = () => {
                 type="radio"
                 id="On-site/Hybrid"
                 name="jobType"
+                checked={jobType === "" || jobType === "Remote" ? false : true}
               />
               <label
                 htmlFor="On-site/Hybrid"
