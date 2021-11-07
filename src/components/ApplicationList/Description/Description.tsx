@@ -73,9 +73,9 @@ const Description: React.FC<Props> = ({
     office_loc,
     linkedin_link,
     jobType,
-    status,
-    id,
-    date,
+    // status,
+    // id,
+    // date,
     descriptionFromLinkedin,
   } = selectedApplication;
 

@@ -34,14 +34,14 @@ const ApplicationListItem: React.FC<Props> = ({
     job_title,
     posting_link,
     company,
-    found_via,
+    // found_via,
     office_loc,
     // linkedin_link,
     jobType,
     status,
-    id,
+    // id,
     date,
-    descriptionFromLinkedin,
+    // descriptionFromLinkedin,
   } = application;
 
   let convertedDate = "";
