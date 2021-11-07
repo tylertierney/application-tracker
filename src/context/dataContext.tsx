@@ -39,7 +39,11 @@ const DataProvider: React.FC = ({ children }: any) => {
   };
 
   const changeStatus = (id: number, newStatus: string) => {
-    let copyOfData = [...data];
+    let copyOfData: any[] = [];
+
+    if (data !== undefined && data !== null) {
+      copyOfData = [...data];
+    }
 
     copyOfData.forEach((app) => {
       if (app.id === id) {
@@ -67,12 +71,15 @@ const DataProvider: React.FC = ({ children }: any) => {
     linkedin_link: string,
     date: Date
   ) => {
-    let copyOfData = [...data];
+    let copyOfData: any[] = [];
+
+    if (data !== undefined && data !== null) {
+      copyOfData = [...data];
+    }
 
     const currentDate = new Date();
 
     const id = Math.round(Math.random() * 100000);
-    console.log(id);
 
     const descriptionFromLinkedin = await getDescriptionFromLinkedin(
       linkedin_link
@@ -107,7 +114,11 @@ const DataProvider: React.FC = ({ children }: any) => {
   };
 
   const deleteApplication = (id: number) => {
-    let copyOfData = [...data];
+    let copyOfData: any[] = [];
+
+    if (data !== undefined && data !== null) {
+      copyOfData = [...data];
+    }
 
     const foundAppIndex = copyOfData.findIndex((app) => {
       return app.id === id;

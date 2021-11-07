@@ -37,20 +37,11 @@ const Home: React.FC<IProps> = ({ data }) => {
 
   const [sortingBy, setSortingBy] = useState("");
 
-  // if (sortingBy === "Status") {
-  //   data.sort((a, b) => {
-  //     if (a.status < b.status) {
-  //       return -1;
-  //     }
-  //     if (a.status > b.status) {
-  //       return 1;
-  //     }
-  //     return 0;
-  //   });
-  // }
   data = handleSort(sortingBy, data);
 
   const [newApplicationIsOpen, setNewApplicationIsOpen] = useState(false);
+
+  console.log(typeof data);
 
   return (
     <Flex
@@ -80,7 +71,7 @@ const Home: React.FC<IProps> = ({ data }) => {
         />
         <SortAndFilter sortingBy={sortingBy} setSortingBy={setSortingBy} />
         <Box height={newApplicationIsOpen ? "30%" : "80%"}>
-          {data === undefined || data === null ? (
+          {data == undefined || data == null || typeof data === "string" ? (
             <Flex justify="center" align="center" w="100%" h="100%">
               <Text fontSize="1.5rem">Add an application to get started!</Text>
             </Flex>

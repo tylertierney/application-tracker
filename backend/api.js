@@ -25,15 +25,16 @@ app.get("/api/applications", (req, res) => {
   fs.readFile("data.json", "utf8", (err, data) => {
     if (err) throw err;
 
-    const parsedData = JSON.parse(data);
+    let parsedData;
+    if (data != [] && data !== undefined && data !== null) {
+      parsedData = JSON.parse(data);
+    }
 
     res.status(200).json(parsedData);
   });
 });
 
 app.post("/api/getlinkedin", async (req, res) => {
-  console.log(req);
-
   const url = req.body.link;
 
   const response = await axios(url)
