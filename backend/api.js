@@ -37,11 +37,21 @@ app.get("/api/applications", (req, res) => {
 app.post("/api/getlinkedin", async (req, res) => {
   const url = req.body.link;
 
-  const response = await axios(url)
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
+  let response = "";
+
+  if (url !== "") {
+    response = await axios(url)
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
+  }
+
+  console.log(typeof response);
 
   res.status(200).send(response);
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../build", "index.html"));
 });
 
 const PORT = 8080;

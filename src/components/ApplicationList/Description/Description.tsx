@@ -183,10 +183,8 @@ const Description: React.FC<Props> = ({
             </Flex>
 
             <Flex h="auto" p="0.2rem 1rem">
-              <Flex w="100%">
-                <Text fontSize="0.8rem">
-                  {parseHtmlFromDescription(descriptionFromLinkedin)}
-                </Text>
+              <Flex w="100%" fontSize="0.8rem" direction="column">
+                {parseHtmlFromDescription(descriptionFromLinkedin)}
               </Flex>
             </Flex>
           </>
