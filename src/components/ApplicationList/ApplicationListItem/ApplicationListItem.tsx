@@ -4,7 +4,10 @@ import { Flex, Text, Badge, Icon } from "@chakra-ui/react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 
-import { determineBadgeColor } from "../../../helperFunctions";
+import {
+  determineBadgeColor,
+  determineBtnColor,
+} from "../../../helperFunctions";
 import { useData } from "../../../context/dataContext";
 
 import { useRef, useState } from "react";
@@ -71,7 +74,7 @@ const ApplicationListItem: React.FC<Props> = ({
         _hover={isHovering ? { backgroundColor: "rgb(0 , 0, 0, 0.1)" } : {}}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
-        onClick={() => handleClick()}
+        onClick={handleClick}
         ref={listItemRef}
       >
         <Flex justify="space-around" align="center" p="0.5rem 0.5rem" w="100%">
@@ -81,7 +84,7 @@ const ApplicationListItem: React.FC<Props> = ({
               minW={["180px", "240px", "240px"]}
               userSelect="none"
             >
-              <Text fontSize={["0.8rem", "0.9rem", "1rem"]} fontWeight="bold">
+              <Text fontSize={["0.9rem", "0.9rem", "1rem"]} fontWeight="bold">
                 <a href={posting_link} style={{ marginRight: "1rem" }}>
                   {job_title}
                 </a>
@@ -97,7 +100,7 @@ const ApplicationListItem: React.FC<Props> = ({
             </Text>
           </Flex>
           <Flex align="center" justify="space-around" ml="auto">
-            <StatusMenu id={id} status={status} />
+            {/* <StatusMenu id={id} status={status} /> */}
             <Icon
               transition="0.05s ease-in-out"
               opacity={isHovering ? "0.5" : "0"}
@@ -134,8 +137,25 @@ const ApplicationListItem: React.FC<Props> = ({
               </Flex>
             ) : null}
           </Flex>
-          <Flex>
-            <Text fontSize="0.7rem">
+          <Flex
+            align="center"
+            justify="space-between"
+            minW="120px"
+            fontSize="0.65rem"
+          >
+            <Text
+              filter="brightness(75%)"
+              color={determineBtnColor(status)}
+              border="solid 1px"
+              borderRadius="5px"
+              borderColor={determineBtnColor(status)}
+              p="0.1rem 0.4rem"
+              mr="0.5rem"
+              fontSize="inherit"
+            >
+              {status}
+            </Text>
+            <Text fontSize="inherit">
               {date === undefined || date === null ? "" : convertedDate}
             </Text>
           </Flex>

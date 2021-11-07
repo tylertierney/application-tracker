@@ -9,6 +9,9 @@ import { ApplicationType } from "../ApplicationList";
 import parse from "html-react-parser";
 
 import { FaMapMarkerAlt, FaExternalLinkAlt } from "react-icons/fa";
+import StatusMenu from "../ApplicationListItem/StatusMenu";
+
+import ConditionalLink from "./ConditionalLink";
 
 interface applicationListRefType {
   current: any;
@@ -48,7 +51,7 @@ const Description: React.FC<Props> = ({
     company,
     found_via,
     office_loc,
-    // linkedin_link,
+    linkedin_link,
     jobType,
     status,
     id,
@@ -66,8 +69,9 @@ const Description: React.FC<Props> = ({
       display="flex"
       justifyContent="center"
     >
-      <Box h="100%" maxW="94%" w="94%">
-        <Flex w="100%" align="center" justify="space-between">
+      {/* <Box h="100%" maxW="94%" w="94%"> */}
+      <Flex h="100%" maxW="94%" w="94%" direction="column">
+        <Flex w="100%" align="center" justify="space-between" mb="0.5rem">
           <Button
             variant="unstyled"
             size="sm"
@@ -81,7 +85,11 @@ const Description: React.FC<Props> = ({
               </Text>
             </Flex>
           </Button>
-          <DeleteConfirmation application={selectedApplication} />
+
+          <StatusMenu
+            status={selectedApplication.status}
+            id={selectedApplication.id}
+          />
         </Flex>
         <Flex>
           <Flex
@@ -115,11 +123,15 @@ const Description: React.FC<Props> = ({
                 </Text>
               </Flex>
             ) : null}
-            {found_via ? (
-              <Text fontSize="0.8rem">
-                {found_via ? `via ${found_via}` : ""}
-              </Text>
-            ) : null}
+            <>
+              {found_via ? (
+                <ConditionalLink link={linkedin_link ?? null}>
+                  {found_via}
+                </ConditionalLink>
+              ) : (
+                ""
+              )}
+            </>
           </Flex>
         </Flex>
         {descriptionFromLinkedin ? (
@@ -142,7 +154,17 @@ const Description: React.FC<Props> = ({
             </Flex>
           </>
         ) : null}
-      </Box>
+        <Flex
+          mt="auto"
+          w="100%"
+          align="center"
+          p="0.2rem 0"
+          justify="space-between"
+        >
+          <DeleteConfirmation application={selectedApplication} />
+        </Flex>
+      </Flex>
+      {/* </Box> */}
     </Box>
   );
 };

@@ -62,6 +62,7 @@ const ApplicationList: React.FC<Props> = ({ data, newApplicationIsOpen }) => {
         </Box>
         <Flex
           height="6%"
+          boxShadow="0px -14px 20px 0px rgb(0, 0, 0, 0.05)"
           w="100%"
           p="0.2rem 0.8rem"
           justify="flex-end"
