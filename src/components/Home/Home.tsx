@@ -41,8 +41,6 @@ const Home: React.FC<IProps> = ({ data }) => {
 
   const [newApplicationIsOpen, setNewApplicationIsOpen] = useState(false);
 
-  console.log(typeof data);
-
   return (
     <Flex
       minW="100vw"
@@ -71,7 +69,7 @@ const Home: React.FC<IProps> = ({ data }) => {
         />
         <SortAndFilter sortingBy={sortingBy} setSortingBy={setSortingBy} />
         <Box height={newApplicationIsOpen ? "30%" : "80%"}>
-          {data == undefined || data == null || typeof data === "string" ? (
+          {data === undefined || data === null || typeof data === "string" ? (
             <Flex justify="center" align="center" w="100%" h="100%">
               <Text fontSize="1.5rem">Add an application to get started!</Text>
             </Flex>
