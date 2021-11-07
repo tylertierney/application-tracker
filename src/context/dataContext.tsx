@@ -101,8 +101,6 @@ const DataProvider: React.FC = ({ children }: any) => {
 
     copyOfData.unshift(appObject);
 
-    console.log(appObject);
-
     // localStorage.setItem("jobapps-data", JSON.stringify(copyOfData));
 
     axios
