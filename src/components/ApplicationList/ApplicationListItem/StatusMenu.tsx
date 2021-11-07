@@ -37,6 +37,7 @@ const StatusMenu: React.FC<Props> = ({ status, id }) => {
         marginRight="0.5rem"
         as={Button}
         fontSize="0.8rem"
+        size="xs"
         minW="100px"
         maxW="100px"
         maxH={["1.6rem", "2rem"]}

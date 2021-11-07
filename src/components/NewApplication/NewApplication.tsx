@@ -51,7 +51,6 @@ const NewApplication: React.FC<Props> = ({
 
   return (
     <Flex
-      direction="column"
       w="100%"
       borderRadius="10px"
       boxShadow="0px 0px 10px 1px rgb(0, 0, 0, 0.2)"
@@ -60,7 +59,16 @@ const NewApplication: React.FC<Props> = ({
       height={newApplicationIsOpen ? "60%" : "10%"}
       justify="center"
     >
-      <form onSubmit={(e) => handleSubmit(e)} style={{ width: "100%" }}>
+      <form
+        onSubmit={(e) => handleSubmit(e)}
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-around",
+        }}
+      >
         <Flex w="100%" justify="space-between" align="center" mb="0.2rem">
           <Flex align="center" w="100%">
             <Text fontSize="0.8rem">Title:&nbsp;</Text>
@@ -100,6 +108,8 @@ const NewApplication: React.FC<Props> = ({
           display={newApplicationIsOpen ? "flex" : "none"}
           direction="column"
           w="100%"
+          h="100%"
+          justify="space-around"
         >
           <Flex align="center" mb="0.2rem">
             <Text fontSize="0.8rem" minW="100px">

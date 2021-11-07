@@ -1,4 +1,4 @@
-import { Flex, Text, Box, Divider } from "@chakra-ui/react";
+import { Flex, Text, Box } from "@chakra-ui/react";
 
 import NewApplication from "../NewApplication/NewApplication";
 import SortAndFilter from "../SortAndFilter/SortAndFilter";

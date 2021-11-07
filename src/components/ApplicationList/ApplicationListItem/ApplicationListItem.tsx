@@ -1,28 +1,10 @@
 import { ApplicationType } from "../../Home/Home";
-import {
-  Flex,
-  Text,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Button,
-  Badge,
-  Icon,
-} from "@chakra-ui/react";
+import { Flex, Text, Badge, Icon } from "@chakra-ui/react";
 
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 
-import DeleteConfirmation from "../DeleteConfirmation";
-
-import { isMobile } from "react-device-detect";
-
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import {
-  determineBtnColor,
-  determineBadgeColor,
-} from "../../../helperFunctions";
+import { determineBadgeColor } from "../../../helperFunctions";
 import { useData } from "../../../context/dataContext";
 
 import { useRef, useState } from "react";
@@ -47,8 +29,6 @@ const ApplicationListItem: React.FC<Props> = ({
   const listItemRef = useRef(null);
 
   const [isHovering, setIsHovering] = useState(false);
-
-  const { changeStatus } = useData();
 
   const {
     job_title,
@@ -101,11 +81,11 @@ const ApplicationListItem: React.FC<Props> = ({
               minW={["180px", "240px", "240px"]}
               userSelect="none"
             >
-              <a href={posting_link} style={{ marginRight: "1rem" }}>
-                <Text fontSize={["0.8rem", "0.9rem", "1rem"]} fontWeight="bold">
+              <Text fontSize={["0.8rem", "0.9rem", "1rem"]} fontWeight="bold">
+                <a href={posting_link} style={{ marginRight: "1rem" }}>
                   {job_title}
-                </Text>
-              </a>
+                </a>
+              </Text>
             </Flex>
             <Text
               minW="160px"
@@ -122,6 +102,7 @@ const ApplicationListItem: React.FC<Props> = ({
               transition="0.05s ease-in-out"
               opacity={isHovering ? "0.5" : "0"}
               fontSize="1.5rem"
+              cursor="pointer"
               as={IoIosArrowForward}
             />
           </Flex>
@@ -154,9 +135,6 @@ const ApplicationListItem: React.FC<Props> = ({
             ) : null}
           </Flex>
           <Flex>
-            <Text fontSize="0.7rem" minW="80px" mr="0.5rem">
-              {found_via ? `via ${found_via}` : ""}
-            </Text>
             <Text fontSize="0.7rem">
               {date === undefined || date === null ? "" : convertedDate}
             </Text>

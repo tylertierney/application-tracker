@@ -6,6 +6,10 @@ import DeleteConfirmation from "../DeleteConfirmation";
 
 import { ApplicationType } from "../ApplicationList";
 
+import parse from "html-react-parser";
+
+import { FaMapMarkerAlt, FaExternalLinkAlt } from "react-icons/fa";
+
 interface applicationListRefType {
   current: any;
 }
@@ -27,24 +31,30 @@ const Description: React.FC<Props> = ({
     });
   };
 
-  console.log(selectedApplication);
-
   if (selectedApplication === null) {
     return <Box></Box>;
   }
 
   const parseHtmlFromDescription = (description: string) => {
-    const parser = new DOMParser();
-    const htmlOutput = parser.parseFromString(description, "text/html");
-    const bodyFromHtml = htmlOutput.querySelector("body");
-    if (bodyFromHtml === null) {
+    if (description === undefined || description === null) {
       return null;
     }
-    console.log(bodyFromHtml.innerHTML);
-    return bodyFromHtml;
+    return parse(description);
   };
 
-  parseHtmlFromDescription(selectedApplication.descriptionFromLinkedin);
+  const {
+    job_title,
+    posting_link,
+    company,
+    found_via,
+    office_loc,
+    // linkedin_link,
+    jobType,
+    status,
+    id,
+    date,
+    descriptionFromLinkedin,
+  } = selectedApplication;
 
   return (
     <Box
@@ -71,10 +81,50 @@ const Description: React.FC<Props> = ({
               </Text>
             </Flex>
           </Button>
-          {/* <DeleteConfirmation  /> */}
+          <DeleteConfirmation application={selectedApplication} />
         </Flex>
-        {selectedApplication.descriptionFromLinkedin ? (
+        <Flex>
+          <Flex
+            justify="center"
+            p="0.2rem 1rem"
+            direction="column"
+            maxW="75%"
+            minW="75%"
+            mb="1rem"
+          >
+            <Text fontSize="1.1rem" fontWeight="semibold">
+              <a href={posting_link}>{job_title}</a>
+              &nbsp;
+              <Icon p="0 0 0.2rem 0" as={FaExternalLinkAlt} />
+            </Text>
+            <Text fontSize="0.9rem">{company}</Text>
+          </Flex>
+          <Flex
+            direction="column"
+            maxW="25%"
+            minW="25%"
+            p="0.2rem 0.1rem 0 0"
+            align="flex-end"
+          >
+            {office_loc ? (
+              <Flex align="center" fontSize="0.8rem">
+                <Icon as={FaMapMarkerAlt} color="blue.700" fontSize="inherit" />
+                <Text fontSize="inherit" fontWeight="medium" userSelect="none">
+                  &nbsp;
+                  {office_loc}
+                </Text>
+              </Flex>
+            ) : null}
+            {found_via ? (
+              <Text fontSize="0.8rem">
+                {found_via ? `via ${found_via}` : ""}
+              </Text>
+            ) : null}
+          </Flex>
+        </Flex>
+        {descriptionFromLinkedin ? (
           <>
+            <Divider />
             <Flex h="auto" p="0.2rem 1rem">
               <Flex w="100%">
                 <Text fontSize="1.2rem" opacity="0.7">
@@ -82,17 +132,12 @@ const Description: React.FC<Props> = ({
                 </Text>
               </Flex>
             </Flex>
-            <Divider />
+
             <Flex h="auto" p="0.2rem 1rem">
               <Flex w="100%">
-                {/* <Text fontSize="0.8rem" opacity="0.7">
-                  {parseHtmlFromDescription(
-                    selectedApplication.descriptionFromLinkedin
-                  )}
-                </Text> */}
-                {parseHtmlFromDescription(
-                  selectedApplication.descriptionFromLinkedin
-                )}
+                <Text fontSize="0.8rem">
+                  {parseHtmlFromDescription(descriptionFromLinkedin)}
+                </Text>
               </Flex>
             </Flex>
           </>
