@@ -8,11 +8,8 @@ import {
   determineBadgeColor,
   determineBtnColor,
 } from "../../../helperFunctions";
-import { useData } from "../../../context/dataContext";
 
 import { useRef, useState } from "react";
-
-import StatusMenu from "./StatusMenu";
 
 interface applicationListRefType {
   current: any;

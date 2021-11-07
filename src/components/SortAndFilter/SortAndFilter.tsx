@@ -20,9 +20,13 @@ interface Props {
 const SortAndFilter: React.FC<Props> = ({ sortingBy, setSortingBy }) => {
   const menuItems = ["Status", "Date"];
 
-  const menuItemsArray = menuItems.map((item) => {
+  const menuItemsArray = menuItems.map((item, index) => {
     return (
-      <MenuItem fontWeight="thin" onClick={() => setSortingBy(item)}>
+      <MenuItem
+        key={index}
+        fontWeight="thin"
+        onClick={() => setSortingBy(item)}
+      >
         {item}
       </MenuItem>
     );

@@ -5,9 +5,13 @@ const app = express();
 
 const axios = require("axios");
 
+const path = require("path");
+
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
+
+app.use(express.static(path.resolve(__dirname, "../build")));
 
 app.post("/updatedata", (req, res) => {
   fs.writeFile("data.json", JSON.stringify(req.body.data), (err) => {

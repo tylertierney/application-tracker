@@ -47,6 +47,11 @@ const DataProvider: React.FC = ({ children }: any) => {
       }
     });
 
+    axios
+      .post("/updatedata", { data: copyOfData })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+
     // localStorage.setItem("jobapps-data", JSON.stringify(copyOfData));
 
     dispatch({ type: "changeStatus", payload: copyOfData });
@@ -88,6 +93,8 @@ const DataProvider: React.FC = ({ children }: any) => {
     };
 
     copyOfData.unshift(appObject);
+
+    console.log(appObject);
 
     // localStorage.setItem("jobapps-data", JSON.stringify(copyOfData));
 

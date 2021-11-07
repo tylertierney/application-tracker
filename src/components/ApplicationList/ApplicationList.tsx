@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Divider, Icon, Button } from "@chakra-ui/react";
+import { Box, Flex, Text, Divider } from "@chakra-ui/react";
 
 import ApplicationListItem from "./ApplicationListItem/ApplicationListItem";
 
