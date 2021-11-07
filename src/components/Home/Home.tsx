@@ -12,6 +12,8 @@ import { isMobile } from "react-device-detect";
 
 import smoothscroll from "smoothscroll-polyfill";
 
+import { handleSort } from "../../helperFunctions";
+
 export interface ApplicationType {
   job_title: string;
   posting_link: string;
@@ -35,17 +37,18 @@ const Home: React.FC<IProps> = ({ data }) => {
 
   const [sortingBy, setSortingBy] = useState("");
 
-  if (sortingBy === "Status") {
-    data.sort((a, b) => {
-      if (a.status < b.status) {
-        return -1;
-      }
-      if (a.status > b.status) {
-        return 1;
-      }
-      return 0;
-    });
-  }
+  // if (sortingBy === "Status") {
+  //   data.sort((a, b) => {
+  //     if (a.status < b.status) {
+  //       return -1;
+  //     }
+  //     if (a.status > b.status) {
+  //       return 1;
+  //     }
+  //     return 0;
+  //   });
+  // }
+  data = handleSort(sortingBy, data);
 
   const [newApplicationIsOpen, setNewApplicationIsOpen] = useState(false);
 
@@ -79,7 +82,7 @@ const Home: React.FC<IProps> = ({ data }) => {
         <Box height={newApplicationIsOpen ? "30%" : "80%"}>
           {data === undefined || data === null ? (
             <Flex justify="center" align="center" w="100%" h="100%">
-              <Text>no data</Text>
+              <Text fontSize="1.5rem">Add an application to get started!</Text>
             </Flex>
           ) : (
             <ApplicationList

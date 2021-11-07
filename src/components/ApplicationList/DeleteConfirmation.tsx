@@ -18,9 +18,10 @@ import { useData } from "../../context/dataContext";
 import { ApplicationType } from "../Home/Home";
 interface Props {
   application: ApplicationType;
+  handleScroll: Function;
 }
 
-const DeleteConfirmation: React.FC<Props> = ({ application }) => {
+const DeleteConfirmation: React.FC<Props> = ({ application, handleScroll }) => {
   const { deleteApplication } = useData();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -28,6 +29,7 @@ const DeleteConfirmation: React.FC<Props> = ({ application }) => {
   const handleClick = () => {
     deleteApplication(application.id);
     onClose();
+    handleScroll();
   };
 
   return (

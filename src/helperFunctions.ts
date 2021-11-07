@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ApplicationType } from "./components/ApplicationList/ApplicationList";
 
 export const determineBtnColor = (status: string) => {
   switch (status) {
@@ -27,9 +28,12 @@ export const determineBadgeColor = (jobType: string) => {
   }
 };
 
-export const getDescriptionFromLinkedin = async () => {
+export const getDescriptionFromLinkedin = async (link: string | undefined) => {
+  if (link === undefined) {
+    return undefined;
+  }
   const description = await axios
-    .get("/api/testcors")
+    .post("/api/getlinkedin", { link })
     .then((res) => {
       const htmlStr = res.data;
       if (res.data === undefined) {
@@ -46,4 +50,36 @@ export const getDescriptionFromLinkedin = async () => {
     .catch((err) => console.log(err));
 
   return description;
+};
+
+export const handleSort = (sortingBy: string, data: ApplicationType[]) => {
+  switch (sortingBy) {
+    case "Status":
+      data.sort((a, b) => {
+        if (a.status < b.status) {
+          return -1;
+        }
+        if (a.status > b.status) {
+          return 1;
+        }
+        return 0;
+      });
+      return data;
+    case "Date":
+      data.sort((a, b) => {
+        if (a.date === undefined || b.date === undefined) {
+          return -1;
+        }
+        if (a.date > b.date) {
+          return -1;
+        }
+        if (a.date < b.date) {
+          return 1;
+        }
+        return 0;
+      });
+      return data;
+    default:
+      return data;
+  }
 };

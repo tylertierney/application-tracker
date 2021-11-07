@@ -23,7 +23,7 @@ const ConditionalLink: React.FC<Props> = ({ children, link }) => {
       </a>
     );
   }
-  return <Text fontSize="0.8rem">{children}</Text>;
+  return <Text fontSize="0.8rem">via {children}</Text>;
 };
 
 export default ConditionalLink;

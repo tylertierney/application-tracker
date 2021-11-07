@@ -66,13 +66,12 @@ const DataProvider: React.FC = ({ children }: any) => {
 
     const currentDate = new Date();
 
-    const id = copyOfData.length;
+    const id = Math.round(Math.random() * 100000);
+    console.log(id);
 
-    // if (linkedin_link !== undefined && linkedin_link !== null) {
-    //   const description = await getDescriptionFromLinkedin();
-    // }
-
-    const descriptionFromLinkedin = await getDescriptionFromLinkedin();
+    const descriptionFromLinkedin = await getDescriptionFromLinkedin(
+      linkedin_link
+    );
 
     const appObject = {
       job_title,

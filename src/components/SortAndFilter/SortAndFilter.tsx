@@ -18,6 +18,16 @@ interface Props {
 }
 
 const SortAndFilter: React.FC<Props> = ({ sortingBy, setSortingBy }) => {
+  const menuItems = ["Status", "Date"];
+
+  const menuItemsArray = menuItems.map((item) => {
+    return (
+      <MenuItem fontWeight="thin" onClick={() => setSortingBy(item)}>
+        {item}
+      </MenuItem>
+    );
+  });
+
   return (
     <Flex h="10%" w="100%" justify="flex-end" align="center">
       <Menu>
@@ -27,9 +37,7 @@ const SortAndFilter: React.FC<Props> = ({ sortingBy, setSortingBy }) => {
         <MenuList>
           <MenuGroup title="Sort By">
             <MenuDivider />
-            <MenuItem fontWeight="thin" onClick={() => setSortingBy("Status")}>
-              Status
-            </MenuItem>
+            {menuItemsArray}
           </MenuGroup>
         </MenuList>
       </Menu>

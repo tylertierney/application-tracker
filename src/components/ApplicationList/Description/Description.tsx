@@ -1,4 +1,12 @@
-import { Box, Flex, Button, Icon, Text, Divider } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Button,
+  Icon,
+  Text,
+  Divider,
+  Badge,
+} from "@chakra-ui/react";
 
 import { IoIosArrowBack } from "react-icons/io";
 
@@ -12,6 +20,8 @@ import { FaMapMarkerAlt, FaExternalLinkAlt } from "react-icons/fa";
 import StatusMenu from "../ApplicationListItem/StatusMenu";
 
 import ConditionalLink from "./ConditionalLink";
+
+import { determineBadgeColor } from "../../../helperFunctions";
 
 interface applicationListRefType {
   current: any;
@@ -35,7 +45,17 @@ const Description: React.FC<Props> = ({
   };
 
   if (selectedApplication === null) {
-    return <Box></Box>;
+    return (
+      <Box
+        h="100%"
+        w="100%"
+        minW="100%"
+        p="0.2rem 0.2rem"
+        overflowY="scroll"
+        display="flex"
+        justifyContent="center"
+      ></Box>
+    );
   }
 
   const parseHtmlFromDescription = (description: string) => {
@@ -69,7 +89,6 @@ const Description: React.FC<Props> = ({
       display="flex"
       justifyContent="center"
     >
-      {/* <Box h="100%" maxW="94%" w="94%"> */}
       <Flex h="100%" maxW="94%" w="94%" direction="column">
         <Flex w="100%" align="center" justify="space-between" mb="0.5rem">
           <Button
@@ -101,11 +120,29 @@ const Description: React.FC<Props> = ({
             mb="1rem"
           >
             <Text fontSize="1.1rem" fontWeight="semibold">
-              <a href={posting_link}>{job_title}</a>
-              &nbsp;
-              <Icon p="0 0 0.2rem 0" as={FaExternalLinkAlt} />
+              {job_title && (
+                <>
+                  <a href={posting_link}>{job_title}</a>
+                  &nbsp;
+                  {posting_link && (
+                    <Icon p="0 0 0.2rem 0" as={FaExternalLinkAlt} />
+                  )}
+                </>
+              )}
             </Text>
-            <Text fontSize="0.9rem">{company}</Text>
+            <Text fontSize="0.9rem" p="0 0 0.2rem 0">
+              {company}
+            </Text>
+            {jobType ? (
+              <Badge
+                colorScheme={determineBadgeColor(jobType)}
+                w="fit-content"
+                fontSize="0.6rem"
+                userSelect="none"
+              >
+                {jobType}
+              </Badge>
+            ) : null}
           </Flex>
           <Flex
             direction="column"
@@ -161,10 +198,12 @@ const Description: React.FC<Props> = ({
           p="0.2rem 0"
           justify="space-between"
         >
-          <DeleteConfirmation application={selectedApplication} />
+          <DeleteConfirmation
+            application={selectedApplication}
+            handleScroll={handleScroll}
+          />
         </Flex>
       </Flex>
-      {/* </Box> */}
     </Box>
   );
 };
