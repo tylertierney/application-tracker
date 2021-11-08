@@ -29,22 +29,24 @@ export const determineBadgeColor = (jobType: string) => {
 };
 
 export const getDescriptionFromLinkedin = async (link: string | undefined) => {
-  if (link === undefined) {
+  if (link == undefined || link == null) {
     return undefined;
   }
   const description = await axios
     .post("/api/getlinkedin", { link })
     .then((res) => {
-      const htmlStr = res.data;
-      if (res.data === undefined) {
+      const htmlStr: any = res.data;
+      if (res.data == undefined) {
         return;
       }
       const parser = new DOMParser();
+
       const parsedHTML = parser.parseFromString(htmlStr, "text/html");
 
       const appOutlet = parsedHTML.getElementsByClassName(
         "show-more-less-html__markup show-more-less-html__markup--clamp-after-5"
       );
+
       return appOutlet[0].innerHTML;
     })
     .catch((err) => console.log(err));

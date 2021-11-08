@@ -45,8 +45,6 @@ app.post("/api/getlinkedin", async (req, res) => {
       .catch((err) => console.log(err));
   }
 
-  console.log(typeof response);
-
   res.status(200).send(response);
 });
 
@@ -54,6 +52,6 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../build", "index.html"));
 });
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => console.log(`Server Running On Port: ${PORT}`));
