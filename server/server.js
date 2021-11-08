@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "../build")));
 
 app.post("/updatedata", (req, res) => {
   fs.writeFile("data.json", JSON.stringify(req.body.data), (err) => {
@@ -51,7 +51,7 @@ app.post("/api/getlinkedin", async (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
+  res.sendFile(path.join(__dirname, "../build", "index.html"));
 });
 
 const PORT = 8080;
